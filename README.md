@@ -10,3 +10,5 @@ Directories to clean are listed in the .cfg file. There can be any number of dir
 By the way, just finally starting to learn git, so ignore this.
 
 Hey here I am changing this on a third computer, yay! I wanna be committed!
+
+I am hooked on github!
