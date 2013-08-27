@@ -51,13 +51,9 @@ def config_section_map(section):
 
 # silly little quit routine
 def done():
-    answer = raw_input("q to quit:")
-    if answer in ('q', 'Q'):
-        print "Change test_mode to False to execute the file deletions"
-        print "Bye. Have a super duper day"
-        sys.exit(0)
-    else:
-        done()
+    print "Change test_mode to False to execute the file deletions"
+    print "Bye. Have a super duper day"
+    sys.exit(0)
     
 #################
 
@@ -80,6 +76,10 @@ for section in config.sections():
 
 #################
 log_out = []
+space_freed = 0
+
+if test_mode:
+    print "Please wait..."
 
 for working_dir in settings_dict:
 
@@ -107,7 +107,7 @@ for working_dir in settings_dict:
                 files.append(filepath)
                 total_size =  file_size + total_size
                 file_count += 1
-    
+            
     if files:
         for deletable_file in files:
             if os.path.isfile(deletable_file) and not test_mode:
@@ -115,22 +115,27 @@ for working_dir in settings_dict:
     
     if file_count > 0:
         file_total_size = sizeof_fmt(total_size)
+        space_freed = total_size + space_freed
         time_stamp = time.asctime( time.localtime(time.time()))
         log_out.append("%s - Deleted %s files older than %s days totalling %s - %s \n" % (time_stamp, file_count, days, file_total_size, working_dir))
     else:
         time_stamp = time.asctime( time.localtime(time.time()))
         log_out.append("%s - No files older than %s days found - %s \n" % (time_stamp, days, working_dir))
-    
+
+	
+summary_line = "%s - %s of disk space freed \n" % (time_stamp, sizeof_fmt(space_freed))
+        
 if test_mode:
-    print "Please wait..."
     for line in log_out:
         print line
+    print summary_line
     print "Running in test mode - no files were removed and no log entry was made"
     done()
 else:
     log = open(log_file, 'a')
     for line in log_out:
         log.write(line)
+    log.write(summary_line)
     log.close()
     sys.exit(0)
 
