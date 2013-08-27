@@ -122,6 +122,7 @@ for working_dir in settings_dict:
         log_out.append("%s - No files older than %s days found - %s \n" % (time_stamp, days, working_dir))
     
 if test_mode:
+    print "Please wait..."
     for line in log_out:
         print line
     print "Running in test mode - no files were removed and no log entry was made"
