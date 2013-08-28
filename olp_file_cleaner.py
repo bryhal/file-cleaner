@@ -7,6 +7,7 @@ Bryan Halstead Aug 22 2013
 Aug 24 - add test_mode - view results without deletion or log entry
 Aug 25 - renamed from 'olp_eps_cleaner' - now more general purpose and uses 
          config file
+Aug 26 - added 'total disk space freed' as summary line in log          
 """
 
 import fnmatch
